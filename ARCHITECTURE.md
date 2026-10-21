@@ -66,9 +66,10 @@ export class MySystem {
 | `ai` | `src/ai/` | enemy characters, navigation, perception, cover selection, combat behaviour |
 | `ui` | `src/ui/` | HUD, crosshair, hitmarkers, damage indicators, ammo, killfeed, menus |
 | `audio` | `src/audio/` | synthesized weapon/foley audio, spatialisation, reverb, occlusion, mix |
+| `survival` | `src/modes/` | NIGHTFALL horde director: wave pacing, reachable-spawn selection, scoring, corpse reaping, night theme |
 
 Shared, owned by the lead (do not edit): `src/core/`, `src/main.js`,
-`src/dev/`, `tools/`, `vite.config.js`.
+`src/dev/`, `tools/`, `vite.config.js`, `src/modes/`.
 
 ## Cross-subsystem events
 

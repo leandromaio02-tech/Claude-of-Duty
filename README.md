@@ -1,9 +1,29 @@
-# Claude of Duty
+# Claude of Duty — NIGHTFALL remix
 
 Get updates [here](https://shumer.dev/newsletter).
 
 A first-person shooter built in the browser with Three.js r180 and WebGL2. Roughly
 55k lines across 11 subsystems, written by a fleet of AI agents under orchestration.
+
+## The remix: NIGHTFALL
+
+This fork turns the TDM sandbox into a round-based survival game. The market
+street now runs at blue hour, the garrison is replaced by a horde director, and
+every wave is larger and tougher than the last.
+
+- **Waves** — 6 hostiles in wave 1, escalating to 32, spawning from reachable
+  points around the level and converging on the player. Later waves carry more
+  health and damage.
+- **Scoring** — 110+ per kill plus a wave-clear bonus; the best wave persists in
+  `localStorage` and survives death.
+- **Death / restart** — going down costs the run but not the record; the mode
+  redeploys after a short countdown.
+- **HUD** — a dedicated wave / hostiles / score cluster replaces the match bar,
+  with an intermission clock and a "SURVIVE" state.
+- **Capture shot** — `node tools/capture.mjs --shot=survival` stages the mode.
+
+`?mode=classic` restores the original TDM sandbox. Deterministic capture runs
+never start the director unless the `survival` shot asks for it.
 
 **There are no art assets.** Every texture, mesh, animation and sound is generated
 procedurally at load time from code. No models, no HDRIs, no image files, no audio

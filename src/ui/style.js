@@ -677,6 +677,53 @@ const CSS = `
   letter-spacing:.2em; color: var(--ink-3);
 }
 
+/* ============================================================ wave HUD */
+/* Survival scoreline. Sits where the match bar sits, but is built as a small
+   instrument cluster: one hairline rule above, a dark seat under the type, and
+   three cells whose spacing is the 4px grid. The blood-red hostiles count is
+   the only saturated value on screen until the player starts shooting. */
+.ow-wave {
+  position:absolute; left:50%; top:calc(var(--pad) * .55 + 43px * var(--k));
+  transform: translateX(-50%);
+  min-width: calc(320px * var(--k));
+  padding: calc(var(--u) * 2) calc(var(--u) * 5.5) calc(var(--u) * 1.6);
+  text-align:center;
+  background: linear-gradient(to bottom,
+    rgba(4,7,10,0) 0%, rgba(4,7,10,.30) 42%, rgba(4,7,10,.30) 100%);
+  border-top: 1px solid var(--hair);
+  opacity: var(--wave-vis, 1);
+  will-change: opacity, transform;
+}
+.ow-wave .row {
+  display:flex; align-items:flex-end; justify-content:center;
+  gap: calc(var(--u) * 4.5);
+}
+.ow-wave .cell { display:flex; flex-direction:column; align-items:center; gap:calc(var(--u) * .5); }
+.ow-wave .lbl {
+  font-size: calc(8.5px * var(--k)); letter-spacing:.26em;
+  color: var(--ink-2); text-shadow: var(--sh);
+}
+.ow-wave .num {
+  font-family: var(--fd);
+  font-size: calc(28px * var(--k)); line-height:1; font-weight:700;
+  letter-spacing:.04em; color: var(--ink);
+  text-shadow: var(--sh-o1);
+  will-change: transform;
+}
+.ow-wave .hostiles .num { color: var(--enemy); }
+.ow-wave .score .num { color: var(--amber); }
+.ow-wave .sep {
+  width:1px; height: calc(25px * var(--k)); align-self:center;
+  background: var(--hair);
+}
+.ow-wave .foot {
+  margin-top: calc(var(--u) * 1.4);
+  display:flex; align-items:center; justify-content:space-between;
+  font-size: calc(9px * var(--k)); letter-spacing:.2em;
+  color: var(--ink-3); text-shadow: var(--sh-hard);
+}
+.ow-wave .foot .phase { color: var(--amber); }
+
 /* ============================================================== fadeouts */
 .ow-hidden { display:none !important; }
 `;

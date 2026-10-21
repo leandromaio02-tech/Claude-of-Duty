@@ -100,6 +100,16 @@ export const SHOTS = {
     apply: (e) => e.ctx.peek('ui')?.debugState?.('combat'),
     doc: 'Full HUD in combat — layout, typography, readability, hit feedback.',
   },
+
+  // ---- remix ----
+  survival: {
+    pos: [12, 1.75, 18],
+    look: [-4, 2.2, -6],
+    fov: 75,
+    time: 20.6,
+    apply: (e) => e.ctx.peek('survival')?.debugStage?.(),
+    doc: 'NIGHTFALL survival remix — blue-hour horde, wave HUD, staged firefight.',
+  },
 };
 
 export function installShotApi(engine, { capture, lockstep = false } = {}) {
@@ -138,6 +148,7 @@ export function installShotApi(engine, { capture, lockstep = false } = {}) {
     engine.ctx.peek('weapons')?.debugPose?.('idle');
     engine.ctx.peek('fx')?.debugBurst?.('none');
     engine.ctx.peek('ui')?.debugState?.('clean');
+    engine.ctx.peek('survival')?.clearDebug?.();
 
     if (shot.time !== undefined) engine.ctx.peek('sky')?.setTimeOfDay?.(shot.time);
     shot.apply?.(engine, opts);

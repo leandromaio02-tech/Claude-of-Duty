@@ -12,6 +12,7 @@ import { FxSystem } from './fx/index.js';
 import { AiSystem } from './ai/index.js';
 import { UiSystem } from './ui/index.js';
 import { AudioSystem } from './audio/index.js';
+import { SurvivalMode } from './modes/survival.js';
 
 import { installShotApi } from './dev/shots.js';
 import { prewarm } from './core/prewarm.js';
@@ -45,7 +46,8 @@ engine
   .add(FxSystem)
   .add(AiSystem)
   .add(UiSystem)
-  .add(AudioSystem);
+  .add(AudioSystem)
+  .add(SurvivalMode);
 
 try {
   await engine.init();

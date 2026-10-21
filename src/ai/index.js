@@ -543,6 +543,31 @@ export class AiSystem {
     return s;
   }
 
+  /**
+   * Remove one actor from the simulation and free its physics handles.
+   * Used by the survival mode to reap settled corpses so a long run cannot
+   * accumulate ragdolls without bound.
+   */
+  removeAgent(agent) {
+    const i = this.agents.indexOf(agent);
+    if (i < 0) return false;
+    agent.dispose();
+    this.agents.splice(i, 1);
+    return true;
+  }
+
+  /** Remove every actor, squad and live grenade. Mode resets use this. */
+  clearAgents() {
+    for (const g of this._grenades) {
+      this.phys?.removeRigidBody(g.body);
+      this.root.remove(g.mesh);
+    }
+    this._grenades.length = 0;
+    for (const a of this.agents) a.dispose();
+    this.agents.length = 0;
+    this.squads.length = 0;
+  }
+
   /* ================================================================== */
   /* firing                                                             */
   /* ================================================================== */

@@ -8,6 +8,7 @@ import { HealthFx } from './health.js';
 import { AmmoPanel } from './ammo.js';
 import { Killfeed } from './killfeed.js';
 import { Compass, MatchBar } from './compass.js';
+import { WaveHud } from './wave.js';
 import { Minimap } from './minimap.js';
 import { WorldMarkers } from './markers.js';
 import { Prompt, Banner } from './prompts.js';
@@ -86,6 +87,7 @@ export class UiSystem {
     this.minimap = new Minimap(this.chromeLayer, this.rng.fork());
     this.compass = new Compass(this.chromeLayer);
     this.matchBar = new MatchBar(this.chromeLayer);
+    this.wave = new WaveHud(this.chromeLayer);
     this.killfeed = new Killfeed(this.chromeLayer);
     this.ammo = new AmmoPanel(this.chromeLayer);
     this.prompt = new Prompt(this.chromeLayer);
@@ -120,6 +122,7 @@ export class UiSystem {
       scoreThem: 0,
       timeLeft: 600,
       mode: 'TDM',
+      wave: { active: false, wave: 1, hostiles: 0, score: 0, best: 0, phase: '', timer: 0 },
       /** true when no player/weapons subsystem is driving us (stub-safe demo) */
       simulate: false,
       time: 0,
@@ -356,6 +359,16 @@ export class UiSystem {
     Object.assign(this.state, m);
   }
 
+  /**
+   * Survival HUD adapter, polled by the mode each frame.
+   * @param {object} m { active, wave, hostiles, score, best, phase, timer }
+   */
+  setWave(m) {
+    Object.assign(this.state.wave, m);
+    this.wave.set(this.state.wave);
+    setStyle(this.matchBar.root, 'display', m.active ? 'none' : '');
+  }
+
   setHudVisible(v) {
     this.hudTarget = v ? 1 : 0;
   }
@@ -510,6 +523,7 @@ export class UiSystem {
     this.ammo.update(dt, s);
     this.killfeed.update(dt);
     this.matchBar.update(s);
+    this.wave.update(dt);
     this.prompt.update(dt);
     this.banner.update(dt);
 
@@ -602,6 +616,7 @@ export class UiSystem {
     this.killfeed.dispose();
     this.compass.dispose();
     this.matchBar.dispose();
+    this.wave.dispose();
     this.minimap.dispose();
     this.markers.dispose();
     this.prompt.dispose();
